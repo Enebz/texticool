@@ -1,4 +1,88 @@
 .container {
   display: flex;
-  background-color: #f1f5f8;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.main {
+  display: flex;
+  max-width: 40rem;
+  width: 100% ;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2.5rem;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  color: rgb(45, 45, 45);
+  font-family: system-ui,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto;
+  font-weight: 800;
+  padding-bottom: 2rem;
+}
+
+.input {
+  height: 3rem;
+  width: 100%;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  border-radius: 0.3rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+  color: rgb(60, 60, 60);
+  font-size: 100%;
+  font-family: system-ui,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto;
+  
+}
+
+.output {
+  width: 100%;
+  height: 10rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-bottom: 2rem;
+  overflow: scroll;
+  line-height: 1.25em;
+  color: rgb(60, 60, 60);
+  font-size: 100%;
+  font-weight: 600;
+  font-family: system-ui,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto;
+}
+
+.settings {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.option {
+  display: flex;
+  width: 25%;
+  margin-bottom: 0.5rem;
+  flex-direction: row;
+  align-items: center;
+  
+}
+
+.checkbox {
+  margin-right: 0.5rem;
+}
+
+.label {
+  color: rgb(60, 60, 60);
+  font-size: 100%;
+  font-weight: 700;
+  font-family: system-ui,BlinkMacSystemFont,-apple-system,Segoe UI,Roboto;
+}
+
+.link {
+  background: -webkit-linear-gradient(left, rgb(60, 60, 60), rgb(60, 60, 200));
+  background-clip: unset;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
