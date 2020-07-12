@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import HandleInput from '../src/InputHandler'
 import './App.css';
 
@@ -9,8 +9,6 @@ import copy from 'copy-to-clipboard';
 function App() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-
-  const charcountRef = useRef(null);
 
   const [effects, setEffects] = useState({
     "Spaces":     {name:"Spaces"    ,state:false},
@@ -70,14 +68,14 @@ function App() {
     var rgb = {};
     
     if (output.length > 280) {
-      var rgb = {
+      rgb = {
         red:    abc.red.a   * 280 * 280 + abc.red.b   * 280 + abc.red.c   ,
         green:  abc.green.a * 280 * 280 + abc.green.b * 280 + abc.green.c ,
         blue:   abc.blue.a  * 280 * 280 + abc.blue.b  * 280 + abc.blue.c  ,
       };
     }
     else {
-      var rgb = {
+      rgb = {
         red:    abc.red.a   * output.length * output.length + abc.red.b   * output.length + abc.red.c   ,
         green:  abc.green.a * output.length * output.length + abc.green.b * output.length + abc.green.c ,
         blue:   abc.blue.a  * output.length * output.length + abc.blue.b  * output.length + abc.blue.c  ,
@@ -132,7 +130,7 @@ function App() {
           </div>
         </div>
         <div className="credits">
-          <p className="madeby">Made by: <a href="https://www.github.com/Enebz" className="page">Enebz❤️</a></p>
+          <p className="madeby">Made by: <a href="https://www.github.com/Enebz" className="page">Enebz<span aria-label="heart" role="img">❤️</span></a></p>
         </div>
       </div>
     </div>
