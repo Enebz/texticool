@@ -4,11 +4,6 @@ import { randomEmoji, randomPoop, randomCool, randomFunny } from '../src/Emoji';
 
 const splitter = new GraphemeSplitter();
 
-// Immutable function resolving
-String.prototype.replaceAt = function(index, replacement) {
-    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
-}
-
 // Misc
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -70,10 +65,10 @@ function Pirateify(input) {
     var pirate = input;
     for (const letter in letters) {
         if (letters[letter].type === "consonant") {
-            if (letters[letter].case == "upper") {
+            if (letters[letter].case === "upper") {
                 pirate = pirate.split(letter).join(letter + "O" + letter);
             }
-            if (letters[letter].case == "lower") {
+            if (letters[letter].case === "lower") {
                 pirate = pirate.split(letter).join(letter + "o" + letter);
             }
         }
@@ -103,7 +98,7 @@ function Randomify(input) {
 function Vowels(input) {
     var vowels = input;
     for (const letter in letters) {
-        if (letters[letter].type == "consonant") {
+        if (letters[letter].type === "consonant") {
             vowels = vowels.split(letter).join("");
         }
         else {
@@ -117,7 +112,7 @@ function Vowels(input) {
 function Consonants(input) {
     var consonants = input;
     for (const letter in letters) {
-        if (letters[letter].type == "vowel") {
+        if (letters[letter].type === "vowel") {
             consonants = consonants.split(letter).join("");
         }
         else {
@@ -165,7 +160,6 @@ function Emoji(input) {
 
 //// Handling the main input
 function HandleInput(input, effects) {
-    console.log(effects);
     var processedInput = input;
 
     // Random Emoji

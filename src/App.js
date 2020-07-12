@@ -2,13 +2,15 @@ import React, { useState, useRef } from 'react';
 import HandleInput from '../src/InputHandler'
 import './App.css';
 
-import { FaTwitter, FaGithub } from 'react-icons/fa';
+import { FaTwitter, FaGithub, FaFileAlt, FaCopy } from 'react-icons/fa';
+import copy from 'copy-to-clipboard';
 
 
 function App() {
   const [input, setInput] = useState('');
-  const outputRef = useRef(null);
-  const inputRef = useRef(null);
+  const [output, setOutput] = useState('');
+
+  const charcountRef = useRef(null);
 
   const [effects, setEffects] = useState({
     "Spaces":     {name:"Spaces"    ,state:false},
@@ -50,42 +52,87 @@ function App() {
     setEffects(newEffects);  
 
     // Handle the input
-    outputRef.current.innerHTML = HandleInput(inputRef.current.value, GetActiveEffects())
+    setOutput(HandleInput(input, GetActiveEffects()));
   }
 
   function inputChange(event) {
     setInput(event.target.value);
-    outputRef.current.innerHTML = HandleInput(event.target.value, GetActiveEffects());
+    setOutput(HandleInput(event.target.value, GetActiveEffects()));
   }
 
-  function outputChange(event) {
+  function CharCountBG() {
+    var abc = {
+      red:   {a: -0.0065,  b: 2.7321, c: -25    },
+      green: {a: -0.0065,  b: 0.9107, c: 225  },
+      blue:  {a:  0.0000,  b: 0.0000, c: 30   },
+    };
+
+    var rgb = {};
     
+    if (output.length > 280) {
+      var rgb = {
+        red:    abc.red.a   * 280 * 280 + abc.red.b   * 280 + abc.red.c   ,
+        green:  abc.green.a * 280 * 280 + abc.green.b * 280 + abc.green.c ,
+        blue:   abc.blue.a  * 280 * 280 + abc.blue.b  * 280 + abc.blue.c  ,
+      };
+    }
+    else {
+      var rgb = {
+        red:    abc.red.a   * output.length * output.length + abc.red.b   * output.length + abc.red.c   ,
+        green:  abc.green.a * output.length * output.length + abc.green.b * output.length + abc.green.c ,
+        blue:   abc.blue.a  * output.length * output.length + abc.blue.b  * output.length + abc.blue.c  ,
+      };
+    }
+    return `rgb(${rgb.red},${rgb.green},${rgb.blue})`;
+  }
+
+  function CharCountData() {
+    var label = output.length;
+    if (output.length > 280) {
+      label = label.toString() + "!"
+    }
+    return label;
+  }
+
+  function CopyOutput() {
+    copy(output);
   }
 
   return (
     <div className="container">
       <div className="main">
         <h1 className="title">
-          <span aria-label="freezing" role="img">🥶</span>
+          <span aria-label="freezing" role="img">😍</span>
           TextiCool
-          <span aria-label="overheating" role="img">🥶</span>
+          <span aria-label="overheating" role="img">😎</span>
         </h1>
-        <input ref={inputRef} value={input} onChange={inputChange} className="input" placeholder="Type what you want to coolify...👏" />
-        <textarea ref={outputRef} className="output" onChange={outputChange} readOnly></textarea>
+        <input className="input" value={input} onChange={inputChange} placeholder="Type what you want to coolify..." />
+        <textarea className="output" value={output} placeholder="This is the results..." readOnly></textarea>
         <Settings onEffectChange={SetEffect} effects={effects}/>
         <div className="social">
-          <div>
-            <a href={"https://twitter.com/intent/tweet?hashtags=&text=" + outputRef.current.innerHTML} className="button tweet">
+          <div className="socialpart">
+            <div style={{backgroundColor: CharCountBG()}} className="charcount">
+              <FaFileAlt className="icon"/>
+              <p dangerouslySetInnerHTML={{__html: CharCountData()}} className="buttontext"></p>
+            </div>
+          </div>
+          <div className="socialpart">
+            <div onClick={CopyOutput} className="button copy">
+              <FaCopy className="icon"/>
+              <p className="buttontext">Copy</p>
+            </div>
+            <a href={"https://twitter.com/intent/tweet?hashtags=&text=" + output + " - Sent with TextiCool."} className="button tweet">
               <FaTwitter className="icon"/>
               <p className="buttontext">Tweet</p>
             </a>
-          </div>
-          <div>
-            <a className="button github">
+            <a href="https://www.github.com/Enebz" className="button github">
               <FaGithub className="icon"/>
               <p className="buttontext">Github</p>
             </a>
           </div>
+        </div>
+        <div className="credits">
+          <p className="madeby">Made by: <a href="https://www.github.com/Enebz" className="page">Enebz❤️</a></p>
         </div>
       </div>
     </div>
